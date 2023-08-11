@@ -14,6 +14,22 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
+func reader(conn *websocket.Conn) {
+	for {
+		messageType, p, err := conn.ReadMessage()
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		log.Println(p)
+
+		if err := conn.WriteMessage(messageType, p); err != nil {
+			log.Println(err)
+			return
+		}
+	}
+}
+
 func handleRestRequest(w http.ResponseWriter, r *http.Request) {
 	log.Println("Rest endpoint reached")
 	var err error
