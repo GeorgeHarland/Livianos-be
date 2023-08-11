@@ -54,7 +54,8 @@ func handleWsRequest(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 	log.Println("Client successfully connected!")
-	//json.NewEncoder(w).Encode("Websocket request")
+
+	reader(ws)
 }
 
 func setupRoutes(muxRouter *mux.Router) {
